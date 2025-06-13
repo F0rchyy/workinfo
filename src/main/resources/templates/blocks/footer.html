@@ -1,0 +1,85 @@
+<div th:fragment="footer">
+    <style>
+        footer {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            color: white;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img {
+            height: 30px;
+            margin-right: 10px;
+        }
+
+        .footer-about p {
+            margin: 1rem 0;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+    </style>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-about">
+                <a href="/" class="footer-logo">
+                    Артёмов Артём Сергеевич
+                </a>
+                <p>
+                    Начинающий Backend-разработчик.
+                    Ищу работу))
+                </p>
+                <div class="footer-social">
+                    <a href="https://web.telegram.org/k/#@idk_whoisit"><i class="fab fa-telegram"></i></a>
+                    <a href="https://github.com/F0rchyy"><i class="fab fa-github"></i></a>
+                    <a href="https://hh.ru/resume/5a13dd4dff0ef56f000039ed1f304155763036"><i class="fa fa-briefcase"></i></a>
+                </div>
+            </div>
+    </footer>
+    <!-- Подключение иконок Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</div>
