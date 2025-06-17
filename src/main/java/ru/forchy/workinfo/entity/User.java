@@ -5,18 +5,23 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "content", schema = "public")
-public class Content {
+@Table(name = "users", schema = "public")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Getter
     @Setter
-    private String tag;
+    @Column(unique = true)
+    private String username;
 
     @Getter
     @Setter
-    private String content;
+    private String password;
+
+    @Getter
+    @Setter
+    private String role;
 }
