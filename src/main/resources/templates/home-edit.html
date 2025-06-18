@@ -10,7 +10,11 @@
 
 <header th:insert="~{blocks/header :: header}"></header>
 
-<div th:utext="${content}"></div>
+<form method="post" action="/edit/home">
+    <input type="hidden" name="text" id="quill-content">
+    <div id="editor" th:text="${content}"></div>
+    <button type="submit" class="btn btn-light"><b>Сохранить</b></button>
+</form>
 
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
@@ -40,6 +44,14 @@ var quill = new Quill('#editor', {
 
     theme: 'snow'
 });
+
+     var initialContent = document.querySelector('#editor').textContent;
+    quill.root.innerHTML = initialContent;
+
+    // Обновление скрытого поля перед отправкой формы
+    document.querySelector('form').addEventListener('submit', function(e) {
+        document.getElementById('quill-content').value = quill.root.innerHTML;
+    });
 </script>
 
 <div th:insert="~{blocks/footer :: footer}"></div>

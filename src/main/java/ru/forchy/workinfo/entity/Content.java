@@ -3,9 +3,11 @@ package ru.forchy.workinfo.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "content", schema = "public")
+@ToString
 public class Content {
 
     @Id
@@ -13,7 +15,6 @@ public class Content {
     private long id;
 
     @Getter
-    @Setter
     private String tag;
 
     @Getter
