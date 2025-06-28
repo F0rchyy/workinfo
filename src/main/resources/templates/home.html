@@ -10,7 +10,11 @@
 
 <header th:insert="~{blocks/header :: header}"></header>
 
-<div th:utext="${content}"></div>
+<form align="center" action="/edit/home" sec:authorize="hasRole('ADMIN')">
+    <button type="submit" class="btn btn-dark"><b>Редактировать страницу</b></button>
+</form>
+
+<div style="margin: 40px 100px" th:utext="${content}"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 

@@ -10,10 +10,10 @@
 
 <header th:insert="~{blocks/header :: header}"></header>
 
-<form method="post" action="/edit/home">
+<form style="margin: 40px 100px" method="post" action="/edit/home">
     <input type="hidden" name="text" id="quill-content">
     <div id="editor" th:text="${content}"></div>
-    <button type="submit" class="btn btn-light"><b>Сохранить</b></button>
+    <button type="submit" class="btn btn-dark"><b>Сохранить</b></button>
 </form>
 
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>

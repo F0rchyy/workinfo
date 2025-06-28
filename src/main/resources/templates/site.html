@@ -9,6 +9,12 @@
 
 <header th:insert="~{blocks/header :: header}"></header>
 
+<form align="center" action="/edit/site" sec:authorize="hasRole('ADMIN')">
+    <button type="submit" class="btn btn-dark"><b>Редактировать страницу</b></button>
+</form>
+
+<div style="margin: 40px 100px" th:utext="${content}"></div>
+
 <div th:insert="~{blocks/footer :: footer}"></div>
 
 </body>
