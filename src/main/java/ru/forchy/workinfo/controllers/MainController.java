@@ -1,6 +1,9 @@
 package ru.forchy.workinfo.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +30,22 @@ public class MainController {
         model.addAttribute("content", res);
 
         return "home";
+    }
+
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("title", "Авторизация");
+
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            request.getSession().invalidate();
+        }
+        return "redirect:/login";
     }
 
     @GetMapping("/portfolio")
