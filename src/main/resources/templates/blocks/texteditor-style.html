@@ -1,0 +1,36 @@
+<style th:fragment="texteditor-style">
+    /* Стили для выравнивания текста */
+    .ql-align-center { text-align: center !important; }
+    .ql-align-right { text-align: right !important; }
+    .ql-align-justify { text-align: justify !important; }
+
+    /* Стили для отступов (ql-indent-1, ql-indent-2, ...) */
+    .ql-indent-1 { padding-left: 3em !important; }
+    .ql-indent-2 { padding-left: 6em !important; }
+    .ql-indent-3 { padding-left: 9em !important; }
+    .ql-indent-4 { padding-left: 12em !important; }
+    .ql-indent-5 { padding-left: 15em !important; }
+    .ql-indent-6 { padding-left: 18em !important; }
+    .ql-indent-7 { padding-left: 21em !important; }
+
+    /* Стиль для blockquote (цитаты) */
+    blockquote {
+        border-left: 4px solid #ccc !important;
+        margin: 1em 0 !important;
+        padding-left: 1em !important;
+        color: #555 !important;
+        font-style: italic !important;
+    }
+
+    /* Стиль для code-block (блоков кода) */
+    .ql-code-block {
+        background-color: #f5f5f5 !important;
+        border: 1px solid #ddd !important;
+        border-radius: 3px !important;
+        padding: 1em !important;
+        font-family: monospace !important;
+        white-space: pre !important;
+        overflow-x: auto !important;
+        margin: 1em 0 !important;
+    }
+</style>

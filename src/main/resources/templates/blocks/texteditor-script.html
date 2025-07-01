@@ -3,7 +3,6 @@
 
   <script>
     var toolbarOptions = [
-        [{ 'font': [] }],                                 // Шрифты
         [{ 'header': [1, 2, 3, 4, 5, 6, false] }],        // Хэдеры
 
         ['bold', 'italic', 'underline', 'strike'],        // Стили
@@ -11,13 +10,13 @@
 
         [{ 'color': [] }, { 'background': [] }],          // Цвета текста и фона
 
-        [{ 'list': 'ordered'}, { 'list': 'bullet' }],     // Списки
+        [{ 'list': 'ordered' }],                          // Списки
         [{ 'indent': '-1'}, { 'indent': '+1' }],          // Табуляция
 
-        [{ 'align': [] }],                                // Выравнивание текста
+        [{ 'align': ['center', 'right', 'justify'] }],    // Выравнивание текста
 
         ['blockquote', 'code-block'],                     // Вставки
-        [ 'link', 'image', 'video', 'formula' ]           // Медиа
+        [ 'link', 'image' ]                               // Медиа
     ];
 
   var quill = new Quill('#editor', {
