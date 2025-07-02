@@ -1,38 +1,38 @@
 <div th:fragment="texteditor-script">
-  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
-  <script>
-    var toolbarOptions = [
-        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],        // Хэдеры
+    <script>
+        var toolbarOptions = [
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],        // Хэдеры
 
-        ['bold', 'italic', 'underline', 'strike'],        // Стили
-        [{ 'script': 'sub'}, { 'script': 'super' }],      // Верхний/нижний индекс
+            ['bold', 'italic', 'underline', 'strike'],        // Стили
+            [{ 'script': 'sub'}, { 'script': 'super' }],      // Верхний/нижний индекс
 
-        [{ 'color': [] }, { 'background': [] }],          // Цвета текста и фона
+            [{ 'color': [] }, { 'background': [] }],          // Цвета текста и фона
 
-        [{ 'list': 'ordered' }],                          // Списки
-        [{ 'indent': '-1'}, { 'indent': '+1' }],          // Табуляция
+            [{ 'list': 'ordered' }],                          // Списки
+            [{ 'indent': '-1'}, { 'indent': '+1' }],          // Табуляция
 
-        [{ 'align': ['center', 'right', 'justify'] }],    // Выравнивание текста
+            [{ 'align': ['center', 'right', 'justify'] }],    // Выравнивание текста
 
-        ['blockquote', 'code-block'],                     // Вставки
-        [ 'link', 'image' ]                               // Медиа
-    ];
+            ['blockquote', 'code-block'],                     // Вставки
+            [ 'link', 'image' ]                               // Медиа
+        ];
 
-  var quill = new Quill('#editor', {
-    modules: {
-        toolbar: toolbarOptions
-    },
+        var quill = new Quill('#editor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
 
-    theme: 'snow'
-  });
+        // Создание скрытого поля для отправки отправки в БД
+        var initialContent = document.querySelector('#editor').textContent;
+        quill.root.innerHTML = initialContent;
 
-     var initialContent = document.querySelector('#editor').textContent;
-    quill.root.innerHTML = initialContent;
-
-    // Обновление скрытого поля перед отправкой формы
-    document.querySelector('form').addEventListener('submit', function(e) {
-        document.getElementById('quill-content').value = quill.root.innerHTML;
-    });
-  </script>
+        // Обновление скрытого поля перед отправкой формы
+        document.querySelector('form').addEventListener('submit', function(e) {
+            document.getElementById('quill-content').value = quill.root.innerHTML;
+        });
+    </script>
 </div>
