@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.forchy.workinfo.entity.Content;
-import ru.forchy.workinfo.entity.User;
-import ru.forchy.workinfo.repository.ContentRepo;
-import ru.forchy.workinfo.repository.UserRepo;
+import ru.forchy.workinfo.entities.Content;
+import ru.forchy.workinfo.entities.User;
+import ru.forchy.workinfo.repositories.ContentRepo;
+import ru.forchy.workinfo.repositories.UserRepo;
 
 import java.util.Optional;
 
@@ -85,11 +85,11 @@ public class MainController {
                                @RequestParam String email,
                                @RequestParam String password) {
 
-        if (userRepo.existsByEmail(email) && userRepo.existsByUsername(username))
+        if (userRepo.existsByEmailIgnoreCase(email) && userRepo.existsByUsernameIgnoreCase(username))
             return "redirect:/register?error=existsByUsernameAndEmail";
-        if (userRepo.existsByUsername(username))
+        if (userRepo.existsByUsernameIgnoreCase(username))
             return "redirect:/register?error=existsByUsername";
-        if (userRepo.existsByEmail(email))
+        if (userRepo.existsByEmailIgnoreCase(email))
             return "redirect:/register?error=existsByEmail";
 
         User user = new User();

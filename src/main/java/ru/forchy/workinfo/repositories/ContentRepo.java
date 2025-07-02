@@ -1,8 +1,8 @@
-package ru.forchy.workinfo.repository;
+package ru.forchy.workinfo.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import ru.forchy.workinfo.entity.Content;
+import ru.forchy.workinfo.entities.Content;
 
 import java.util.Optional;
 

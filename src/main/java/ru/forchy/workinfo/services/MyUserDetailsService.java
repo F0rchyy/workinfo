@@ -1,12 +1,12 @@
-package ru.forchy.workinfo.configs;
+package ru.forchy.workinfo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.forchy.workinfo.entity.User;
-import ru.forchy.workinfo.repository.UserRepo;
+import ru.forchy.workinfo.entities.User;
+import ru.forchy.workinfo.repositories.UserRepo;
 
 import java.util.Optional;
 
@@ -23,14 +23,14 @@ public class MyUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepo.findByUsername(username);
+        Optional<User> user = userRepo.findByUsernameIgnoreCase(username);
 
         return user.map(MyUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь \"" + username + "\" не найден"));
     }
 
     public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
-        Optional<User> user = userRepo.findByEmail(email);
+        Optional<User> user = userRepo.findByEmailIgnoreCase(email);
         return user.map(MyUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь с email \"" + email + "\" не найден"));
     }

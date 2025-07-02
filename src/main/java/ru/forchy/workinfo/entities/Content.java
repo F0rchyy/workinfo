@@ -1,4 +1,4 @@
-package ru.forchy.workinfo.entity;
+package ru.forchy.workinfo.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;

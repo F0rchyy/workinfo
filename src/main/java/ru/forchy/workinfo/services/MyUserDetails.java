@@ -1,9 +1,9 @@
-package ru.forchy.workinfo.configs;
+package ru.forchy.workinfo.services;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.forchy.workinfo.entity.User;
+import ru.forchy.workinfo.entities.User;
 
 import java.util.Arrays;
 import java.util.Collection;
