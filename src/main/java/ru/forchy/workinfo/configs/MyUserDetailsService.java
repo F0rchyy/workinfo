@@ -28,4 +28,10 @@ public class MyUserDetailsService implements UserDetailsService {
         return user.map(MyUserDetails::new)
                 .orElseThrow(() -> new UsernameNotFoundException("Пользователь \"" + username + "\" не найден"));
     }
+
+    public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
+        Optional<User> user = userRepo.findByEmail(email);
+        return user.map(MyUserDetails::new)
+                .orElseThrow(() -> new UsernameNotFoundException("Пользователь с email \"" + email + "\" не найден"));
+    }
 }

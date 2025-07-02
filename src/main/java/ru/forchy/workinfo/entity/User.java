@@ -29,4 +29,9 @@ public class User {
     @Getter
     @Setter
     private String role;
+
+    @Getter
+    @Setter
+    @Column(unique = true)
+    private String email;
 }

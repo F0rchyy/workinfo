@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.forchy.workinfo.entity.Content;
+import ru.forchy.workinfo.entity.User;
 import ru.forchy.workinfo.repository.ContentRepo;
+import ru.forchy.workinfo.repository.UserRepo;
 
 import java.util.Optional;
 
@@ -25,6 +28,12 @@ public class MainController {
 
     @Autowired
     private ContentRepo contentRepo;
+
+    @Autowired
+    private UserRepo userRepo;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping(value = {"/", "/home"})
     public String home(Model model) {
@@ -50,6 +59,48 @@ public class MainController {
         }
 
         return "login";
+    }
+
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model, @RequestParam(name = "error", required = false) String error) {
+        model.addAttribute("title", "Регистрация");
+
+        if (error != null) {
+            if (error.equals("existsByUsernameAndEmail"))
+                model.addAttribute("error", "Пользователь с таким логином и почтой уже существует");
+            if (error.equals("existsByUsername"))
+                model.addAttribute("error", "Пользователь с таким логином уже существует");
+            if (error.equals("existsByEmail"))
+                model.addAttribute("error", "Пользователь с такой почтой уже существует");
+        } else {
+            model.addAttribute("error", "");
+        }
+
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(Model model,
+                               @RequestParam String username,
+                               @RequestParam String email,
+                               @RequestParam String password) {
+
+        if (userRepo.existsByEmail(email) && userRepo.existsByUsername(username))
+            return "redirect:/register?error=existsByUsernameAndEmail";
+        if (userRepo.existsByUsername(username))
+            return "redirect:/register?error=existsByUsername";
+        if (userRepo.existsByEmail(email))
+            return "redirect:/register?error=existsByEmail";
+
+        User user = new User();
+        user.setUsername(username);
+        user.setEmail(email);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setRole("ROLE_USER");
+
+        userRepo.save(user);
+
+        return "redirect:/login";
     }
 
     // Инвалидация текущей сессии пользователя и редирект на страницу аутентификации
