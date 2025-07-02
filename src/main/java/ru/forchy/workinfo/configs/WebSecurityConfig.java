@@ -13,6 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+/**
+ * Класс, реализующий настройку безопасности веб-приложения
+ * Необходим для определения возможностей взаимодействия веб-приложения с конкретным пользователем
+ */
+
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -23,6 +28,8 @@ public class WebSecurityConfig {
         return new MyUserDetailsService();
     }
 
+    // Настройка DaoAuthentication
+    // Устанавливает сервис и кодировщик аутентификации
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -31,6 +38,7 @@ public class WebSecurityConfig {
         return provider;
     }
 
+    // Настройка цепочки безопасности HTTP запросов
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -42,6 +50,7 @@ public class WebSecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/home", true)
+                        .failureUrl("/login?error=authentication")
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -53,6 +62,7 @@ public class WebSecurityConfig {
                 .build();
     }
 
+    // Кодировка пароля в BCrypt мощностью 5
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(5);

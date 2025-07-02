@@ -15,6 +15,11 @@ import ru.forchy.workinfo.repository.ContentRepo;
 
 import java.util.Optional;
 
+/**
+ * Класс, реализующий контроллер веб-приложения
+ * Необходим для определения маршрутов и методов обработки запросов
+ */
+
 @Controller
 public class MainController {
 
@@ -25,6 +30,7 @@ public class MainController {
     public String home(Model model) {
         model.addAttribute("title", "Главная страница");
 
+        // Подгрузка контента страницы из БД
         Optional<Content> content = contentRepo.findByTag("home");
         String res = content.map(Content::getContent).orElse(null);
         model.addAttribute("content", res);
@@ -33,12 +39,20 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String login(Model model) {
+    public String login(Model model, @RequestParam(name = "error", required = false) String error) {
         model.addAttribute("title", "Авторизация");
+
+        // Вывод ошибки аутентификации, если она есть
+        if (error != null) {
+            model.addAttribute("error", "Неизвестное сочетание логина и пароля");
+        } else {
+            model.addAttribute("error", "");
+        }
 
         return "login";
     }
 
+    // Инвалидация текущей сессии пользователя и редирект на страницу аутентификации
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -52,6 +66,7 @@ public class MainController {
     public String portfolio(Model model) {
         model.addAttribute("title", "Портфолио");
 
+        // Подгрузка контента страницы из БД
         Optional<Content> content = contentRepo.findByTag("portfolio");
         String res = content.map(Content::getContent).orElse(null);
         model.addAttribute("content", res);
@@ -63,6 +78,7 @@ public class MainController {
     public String about(Model model) {
         model.addAttribute("title", "О себе");
 
+        // Подгрузка контента страницы из БД
         Optional<Content> content = contentRepo.findByTag("about");
         String res = content.map(Content::getContent).orElse(null);
         model.addAttribute("content", res);
@@ -74,6 +90,7 @@ public class MainController {
     public String site(Model model) {
         model.addAttribute("title", "Об этом сайте");
 
+        // Подгрузка контента страницы из БД
         Optional<Content> content = contentRepo.findByTag("site");
         String res = content.map(Content::getContent).orElse(null);
         model.addAttribute("content", res);
@@ -85,6 +102,7 @@ public class MainController {
     public String contact(Model model) {
         model.addAttribute("title", "Связаться");
 
+        // Подгрузка контента страницы из БД
         Optional<Content> content = contentRepo.findByTag("contact");
         String res = content.map(Content::getContent).orElse(null);
         model.addAttribute("content", res);
@@ -96,6 +114,7 @@ public class MainController {
     public String editHome(@PathVariable(value = "page") String page, Model model) {
         model.addAttribute("title", "Редактирование");
 
+        // Подгрузка контента страницы из БД
         Optional<Content> content = contentRepo.findByTag(page);
         String res = content.map(Content::getContent).orElse(null);
         model.addAttribute("content", res);
@@ -105,6 +124,7 @@ public class MainController {
 
     @PostMapping("/edit/{page}")
     public String contentPostUpdate(@PathVariable(value = "page") String page, @RequestParam String text, Model model) {
+        // Изменение контента страницы
         Content content = contentRepo.findByTag(page).orElseThrow();
         content.setContent(text);
         contentRepo.save(content);

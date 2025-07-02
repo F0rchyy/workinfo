@@ -9,6 +9,11 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+/**
+ * Класс, реализующий интерфейс UserDetails
+ * Необходим для предоставления информации о пользователе, используемой для аутентификации и авторизации
+ */
+
 public class MyUserDetails implements UserDetails {
     private User user;
 
@@ -16,6 +21,7 @@ public class MyUserDetails implements UserDetails {
         this.user = user;
     }
 
+    // Получение ролей пользователя
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Arrays.stream(user.getRole().split(", "))

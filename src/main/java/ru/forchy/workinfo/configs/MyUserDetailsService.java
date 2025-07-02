@@ -10,6 +10,11 @@ import ru.forchy.workinfo.repository.UserRepo;
 
 import java.util.Optional;
 
+/**
+ * Класс, реализующий интерфейс UserDetailsService
+ * Необходим для загрузки данных пользователя по логину из БД
+ */
+
 @Service
 public class MyUserDetailsService implements UserDetailsService {
 

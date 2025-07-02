@@ -6,6 +6,11 @@ import ru.forchy.workinfo.entity.User;
 
 import java.util.Optional;
 
+/**
+ * Класс, реализующий интерфейс репозитория в JPA
+ * Необходим для выполнения операций с сущностью пользователя
+ */
+
 @Repository
 public interface UserRepo extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
